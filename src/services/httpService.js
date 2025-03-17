@@ -1,8 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-// console.log("base url", import.meta.env.VITE_APP_API_BASE_URL);
-
 const instance = axios.create({
   baseURL: `${import.meta.env.VITE_APP_API_BASE_URL}`,
   timeout: 50000,

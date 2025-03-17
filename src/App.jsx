@@ -15,6 +15,7 @@ const ForgetPassword = lazy(() => import("@/pages/ForgotPassword"));
 const ResetPassword = lazy(() => import("@/pages/ResetPassword"));
 
 const App = () => {
+  // console.log("base url", import.meta.env.VITE_APP_API_BASE_URL);
   return (
     <>
       <ToastContainer />

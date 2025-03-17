@@ -6,6 +6,7 @@ const AdminServices = {
   },
 
   loginAdmin: async (body) => {
+    console.log("base url", import.meta.env.VITE_APP_API_BASE_URL);
     return requests.post(`/admin/login`, body);
   },
 
