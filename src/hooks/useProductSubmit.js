@@ -154,6 +154,7 @@ const useProductSubmit = (id) => {
           originalPrice: getNumberTwo(data.originalPrice),
           discount: Number(data.originalPrice) - Number(data.price),
         },
+        commision: data.commision || 0,
         isCombination: updatedVariants?.length > 0 ? isCombination : false,
         variants: isCombination ? updatedVariants : [],
       };
