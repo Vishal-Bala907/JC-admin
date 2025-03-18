@@ -328,20 +328,20 @@ const ProductDrawer = ({ id }) => {
                 </div>
               </div>
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6 relative">
-                <LabelArea label={t("Commision ( % )")} />
+                <LabelArea label={t("commission ( % )")} />
                 <div className="col-span-8 sm:col-span-4">
                   <InputValueFive
                     required={false}
                     // disabled={isCombination}
                     register={register}
                     minValue={0}
-                    defaultValue={values.commision || 0}
-                    label="commision"
-                    name="commision"
+         
+                    label="commission"
+                    name="commission"
                     type="number"
-                    placeholder={t("Add commision in %")}
+                    placeholder={t("Add commission in %")}
                   />
-                  <Error errorName={errors.commision} />
+                  <Error errorName={errors.commission} />
                 </div>
               </div>
 
