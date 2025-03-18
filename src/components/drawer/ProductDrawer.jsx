@@ -88,6 +88,7 @@ const ProductDrawer = ({ id }) => {
     handleSelectInlineImage,
     handleGenerateCombination,
   } = useProductSubmit(id);
+console.log("commission value->", values.commission);
 
   const { currency, showingTranslateValue } = useUtilsFunction();
 
@@ -335,7 +336,7 @@ const ProductDrawer = ({ id }) => {
                     // disabled={isCombination}
                     register={register}
                     minValue={0}
-                    defaultValue={values.commission || 0}
+                    defaultValue={values.commission }
                     label="commission"
                     name="commission"
                     type="number"
