@@ -335,7 +335,7 @@ const ProductDrawer = ({ id }) => {
                     // disabled={isCombination}
                     register={register}
                     minValue={0}
-         
+                    defaultValue={values.commission || 0}
                     label="commission"
                     name="commission"
                     type="number"
