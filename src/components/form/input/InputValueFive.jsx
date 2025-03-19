@@ -12,6 +12,7 @@ const InputValueFive = ({
   defaultValue,
   placeholder,
 }) => {
+
   const value = {
     valueAsNumber: true,
     required: required ? `${label} is required!` : false,
@@ -30,6 +31,8 @@ const InputValueFive = ({
     // onBlur: (e) => handleTotalVolume(e.target.value, 'stock'),
   };
 
+  // console.log(defaultValue);
+
   return (
     <>
       <div className={`flex flex-row`}>
@@ -39,6 +42,7 @@ const InputValueFive = ({
           type={type}
           disabled={disabled}
           defaultValue={defaultValue}
+          value={defaultValue}
           placeholder={placeholder}
           className="mr-2 p-2"
         />

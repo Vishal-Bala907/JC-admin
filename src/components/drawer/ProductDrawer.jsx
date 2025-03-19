@@ -43,6 +43,8 @@ const ProductDrawer = ({ id }) => {
   const { t } = useTranslation();
 
   const {
+    commission,
+    setCommission,
     tag,
     setTag,
     values,
@@ -88,7 +90,7 @@ const ProductDrawer = ({ id }) => {
     handleSelectInlineImage,
     handleGenerateCombination,
   } = useProductSubmit(id);
-console.log("commission value->", values.commission);
+  console.log("commission value->", commission);
 
   const { currency, showingTranslateValue } = useUtilsFunction();
 
@@ -333,14 +335,14 @@ console.log("commission value->", values.commission);
                 <div className="col-span-8 sm:col-span-4">
                   <InputValueFive
                     required={false}
-                    // disabled={isCombination}
                     register={register}
                     minValue={0}
-                    defaultValue={values.commission }
+                    defaultValue={commission}
                     label="commission"
                     name="commission"
                     type="number"
                     placeholder={t("Add commission in %")}
+                    onChange={(e) => setCommission(e.target.value)}
                   />
                   <Error errorName={errors.commission} />
                 </div>
