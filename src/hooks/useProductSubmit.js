@@ -54,7 +54,7 @@ const useProductSubmit = (id) => {
   const [openModal, setOpenModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [slug, setSlug] = useState("");
-
+  const [commission, setCommission] = useState(0);
   const { handlerTextTranslateHandler } = useTranslationValue();
   const { showingTranslateValue, getNumber, getNumberTwo } = useUtilsFunction();
 
@@ -130,6 +130,7 @@ const useProductSubmit = (id) => {
         productId: productId,
         sku: data.sku || "",
         barcode: data.barcode || "",
+        commission: data.commission || 0,
         title: {
           ...titleTranslates,
           [language]: data.title,
@@ -262,7 +263,7 @@ const useProductSubmit = (id) => {
       setValue("price");
       setValue("barcode");
       setValue("productId");
-
+      setCommission(0);
       setProductId("");
       // setValue('show');
       setImageUrl([]);
@@ -306,12 +307,13 @@ const useProductSubmit = (id) => {
         try {
           const res = await ProductServices.getProductById(id);
 
-          // console.log("res", res);
+          console.log("res", res.commission);
 
           if (res) {
             setResData(res);
             setSlug(res.slug);
             setUpdatedId(res._id);
+            setCommission(res.commission || 0);
             setValue("title", res.title[language ? language : "en"]);
             setValue(
               "description",
@@ -697,6 +699,8 @@ const useProductSubmit = (id) => {
     handleSelectImage,
     handleSelectInlineImage,
     handleGenerateCombination,
+    commission,
+    setCommission,
   };
 };
 
