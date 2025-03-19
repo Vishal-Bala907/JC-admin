@@ -42,7 +42,6 @@ const InputValueFive = ({
           type={type}
           disabled={disabled}
           defaultValue={defaultValue}
-          value={defaultValue}
           placeholder={placeholder}
           className="mr-2 p-2"
         />

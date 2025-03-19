@@ -333,15 +333,24 @@ const ProductDrawer = ({ id }) => {
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6 relative">
                 <LabelArea label={t("commission ( % )")} />
                 <div className="col-span-8 sm:col-span-4">
-                  <InputValueFive
-                    required={false}
-                    register={register}
-                    minValue={0}
-                    defaultValue={commission}
-                    label="commission"
+                  <Input
+                    {...register("commission", {
+                      valueAsNumber: true,
+                      required: false,
+                      min: {
+                        value: 0,
+                        message: "Minimum value is 0!",
+                      },
+                      pattern: {
+                        value: /^[0-9]*$/,
+                        message: "Invalid commission value!",
+                      },
+                    })}
                     name="commission"
                     type="number"
+                    value={commission}
                     placeholder={t("Add commission in %")}
+                    defaultValue={commission}
                     onChange={(e) => setCommission(e.target.value)}
                   />
                   <Error errorName={errors.commission} />
