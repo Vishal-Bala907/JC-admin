@@ -40,11 +40,10 @@ const useCouponSubmit = (id) => {
         language,
         resData?.title
       );
-
       const couponData = {
         title: {
           ...titleTranslates,
-          [language]: title,
+          [language]: data.title,
         },
         couponCode: data.couponCode,
         endTime: data.endTime,
