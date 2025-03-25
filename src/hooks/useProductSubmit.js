@@ -35,6 +35,8 @@ const useProductSubmit = (id) => {
 
   const [originalPrice, setOriginalPrice] = useState(0);
   const [price, setPrice] = useState(0);
+
+
   const [sku, setSku] = useState("");
   const [barcode, setBarcode] = useState("");
   const [isBasicComplete, setIsBasicComplete] = useState(false);
@@ -154,8 +156,8 @@ const useProductSubmit = (id) => {
           price: getNumber(data.price),
           originalPrice: getNumberTwo(data.originalPrice),
           discount: Number(data.originalPrice) - Number(data.price),
+          gst:Number(data.gst)
         },
-        commission: data.commission || 0,
         isCombination: updatedVariants?.length > 0 ? isCombination : false,
         variants: isCombination ? updatedVariants : [],
       };
@@ -326,6 +328,7 @@ const useProductSubmit = (id) => {
             setValue("stock", res.stock);
             setValue("productId", res.productId);
             setValue("price", res?.prices?.price);
+            setValue("gst", res?.prices?.gst);
             setValue("originalPrice", res?.prices?.originalPrice);
             setValue("stock", res.stock);
             setProductId(res.productId ? res.productId : res._id);

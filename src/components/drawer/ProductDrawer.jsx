@@ -90,7 +90,6 @@ const ProductDrawer = ({ id }) => {
     handleSelectInlineImage,
     handleGenerateCombination,
   } = useProductSubmit(id);
-  console.log("commission value->", commission);
 
   const { currency, showingTranslateValue } = useUtilsFunction();
 
@@ -292,6 +291,25 @@ const ProductDrawer = ({ id }) => {
                   <Error errorName={errors.originalPrice} />
                 </div>
               </div>
+              <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
+                <LabelArea label="Gst (%)" />
+                <div className="col-span-8 sm:col-span-4">
+                  <InputValue
+                    disabled={isCombination}
+                    product
+                    register={register}
+                    minValue={0}
+                    defaultValue={0.0}
+                    required={true}
+                    label="Gst"
+                    name="gst"
+                    type="number"
+                    placeholder="Gst in %"
+                     currency={'%'}
+                  />
+                  <Error errorName={errors.gst} />
+                </div>
+              </div>
 
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
                 <LabelArea label={t("SalePrice")} />
@@ -331,7 +349,7 @@ const ProductDrawer = ({ id }) => {
                 </div>
               </div>
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6 relative">
-                <LabelArea label={t("commission ( % )")} />
+                <LabelArea label={"commission ( % )"} />
                 <div className="col-span-8 sm:col-span-4">
                   <Input
                     {...register("commission", {
@@ -349,7 +367,7 @@ const ProductDrawer = ({ id }) => {
                     name="commission"
                     type="number"
                     value={commission}
-                    placeholder={t("Add commission in %")}
+                    placeholder={"Add commission in %"}
                     defaultValue={commission}
                     onChange={(e) => setCommission(e.target.value)}
                   />
