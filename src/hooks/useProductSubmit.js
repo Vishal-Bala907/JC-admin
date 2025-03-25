@@ -56,7 +56,6 @@ const useProductSubmit = (id) => {
   const [openModal, setOpenModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [slug, setSlug] = useState("");
-  const [commission, setCommission] = useState(0);
   const { handlerTextTranslateHandler } = useTranslationValue();
   const { showingTranslateValue, getNumber, getNumberTwo } = useUtilsFunction();
 
@@ -265,7 +264,7 @@ const useProductSubmit = (id) => {
       setValue("price");
       setValue("barcode");
       setValue("productId");
-      setCommission(0);
+      setValue("commission");
       setProductId("");
       // setValue('show');
       setImageUrl([]);
@@ -315,7 +314,6 @@ const useProductSubmit = (id) => {
             setResData(res);
             setSlug(res.slug);
             setUpdatedId(res._id);
-            setCommission(res.commission || 0);
             setValue("title", res.title[language ? language : "en"]);
             setValue(
               "description",
@@ -326,6 +324,7 @@ const useProductSubmit = (id) => {
             setValue("sku", res.sku);
             setValue("barcode", res.barcode);
             setValue("stock", res.stock);
+            setValue("commission", res?.commission);
             setValue("productId", res.productId);
             setValue("price", res?.prices?.price);
             setValue("gst", res?.prices?.gst);
@@ -702,8 +701,6 @@ const useProductSubmit = (id) => {
     handleSelectImage,
     handleSelectInlineImage,
     handleGenerateCombination,
-    commission,
-    setCommission,
   };
 };
 

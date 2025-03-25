@@ -43,8 +43,7 @@ const ProductDrawer = ({ id }) => {
   const { t } = useTranslation();
 
   const {
-    commission,
-    setCommission,
+ 
     tag,
     setTag,
     values,
@@ -305,7 +304,7 @@ const ProductDrawer = ({ id }) => {
                     name="gst"
                     type="number"
                     placeholder="Gst in %"
-                     currency={'%'}
+                    currency={"%"}
                   />
                   <Error errorName={errors.gst} />
                 </div>
@@ -349,27 +348,18 @@ const ProductDrawer = ({ id }) => {
                 </div>
               </div>
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6 relative">
-                <LabelArea label={"commission ( % )"} />
+                <LabelArea label={"Commission (%)"} />
                 <div className="col-span-8 sm:col-span-4">
-                  <Input
-                    {...register("commission", {
-                      valueAsNumber: true,
-                      required: false,
-                      min: {
-                        value: 0,
-                        message: "Minimum value is 0!",
-                      },
-                      pattern: {
-                        value: /^[0-9]*$/,
-                        message: "Invalid commission value!",
-                      },
-                    })}
+                  <InputValueFive
+                    required={true}
+                    disabled={isCombination}
+                    register={register}
+                    minValue={0}
+                    defaultValue={0}
+                    label="Commission"
                     name="commission"
                     type="number"
-                    value={commission}
-                    placeholder={"Add commission in %"}
-                    defaultValue={commission}
-                    onChange={(e) => setCommission(e.target.value)}
+                    placeholder={"Commission in %"}
                   />
                   <Error errorName={errors.commission} />
                 </div>
