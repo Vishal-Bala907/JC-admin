@@ -126,6 +126,8 @@ const useProductSubmit = (id) => {
         language,
         resData?.description
       );
+      // const gstAmount =(Number(data.price) * Number(data.gst))/100;
+      // const finalPrice = Number(data.price) + gstAmount;
 
       const productData = {
         productId: productId,
@@ -155,7 +157,7 @@ const useProductSubmit = (id) => {
           price: getNumber(data.price),
           originalPrice: getNumberTwo(data.originalPrice),
           discount: Number(data.originalPrice) - Number(data.price),
-          gst:Number(data.gst)
+          gst: Number(data.gst),
         },
         isCombination: updatedVariants?.length > 0 ? isCombination : false,
         variants: isCombination ? updatedVariants : [],
