@@ -180,7 +180,10 @@ const OrderInvoice = () => {
                     <TableCell className="text-center">
                       {t("ItemPrice")}
                     </TableCell>
-                    <TableCell className="text-right">{t("Amount")}</TableCell>
+                    <TableCell className="text-center">
+                      {("GST")}
+                    </TableCell>
+                    <TableCell className="text-right">{("Amount")}</TableCell>
                   </tr>
                 </TableHeader>
                 <Invoice
