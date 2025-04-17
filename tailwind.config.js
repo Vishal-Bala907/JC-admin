@@ -13,6 +13,10 @@ const config = {
         bottom:
           "0 5px 6px -7px rgba(0, 0, 0, 0.6), 0 2px 4px -5px rgba(0, 0, 0, 0.06)",
       },
+      colors: {
+        customPink: "#E40882",
+        customPinkDark: "#B30060",
+      },
       height: {
         28: "100px",
         sm: "350px",

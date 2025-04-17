@@ -12,6 +12,7 @@ const InputValueFive = ({
   defaultValue,
   placeholder,
 }) => {
+
   const value = {
     valueAsNumber: true,
     required: required ? `${label} is required!` : false,
@@ -29,6 +30,8 @@ const InputValueFive = ({
     },
     // onBlur: (e) => handleTotalVolume(e.target.value, 'stock'),
   };
+
+  // console.log(defaultValue);
 
   return (
     <>

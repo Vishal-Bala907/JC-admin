@@ -516,6 +516,22 @@ const InvoiceForDownload = ({
                   </Text>
                 </Text>
               </View>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>
+                  <Text
+                    style={{
+                      color: "#6b7280",
+                      fontSize: 9,
+                      fontFamily: "Open Sans",
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                      textAlign: "left",
+                    }}
+                  >
+                    {"GST"}
+                  </Text>
+                </Text>
+              </View>
 
               <View style={styles.tableCol}>
                 <Text style={styles.tableCell}>
@@ -566,12 +582,29 @@ const InvoiceForDownload = ({
                         fontFamily: "Open Sans",
                       }}
                     >
-                      {currency}
-                      {getNumberTwo(item.price)}
+                      {"₹"}
+                      {/* {getNumberTwo(item.price)} */}
+                      {getNumberTwo(
+                        (item.price * 100) / (100 + (item.prices.gst ?? 0))
+                      )}
                     </Text>
                   </Text>
                 </View>
-
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        fontWeight: "bold",
+                        textAlign: "left",
+                        fontFamily: "Open Sans",
+                      }}
+                    >
+                      {getNumberTwo(item.prices.gst)}
+                      {"%"}
+                    </Text>
+                  </Text>
+                </View>
                 <View style={styles.tableCol}>
                   <Text style={styles.tableCell}>
                     <Text

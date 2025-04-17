@@ -102,7 +102,7 @@ const SignUp = () => {
 
               <hr className="my-10" />
 
-              <button
+              {/* <button
                 disabled
                 className="text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-serif text-center justify-center rounded-md focus:outline-none text-gray-700 bg-gray-100 shadow-sm my-2 md:px-2 lg:px-3 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-blue-600 h-11 md:h-12 w-full mr-2"
               >
@@ -115,11 +115,11 @@ const SignUp = () => {
               >
                 <ImGoogle className="w-4 h-4 mr-2" />{" "}
                 <span className="ml-2">{t("LoginWithGoogle")}</span>
-              </button>
+              </button> */}
 
               <p className="mt-4">
                 <Link
-                  className="text-sm font-medium text-emerald-500 dark:text-emerald-400 hover:underline"
+                  className="text-sm font-medium text-customPink dark:text-customPinkDark hover:underline"
                   to="/login"
                 >
                   {t("AlreadyAccount")}

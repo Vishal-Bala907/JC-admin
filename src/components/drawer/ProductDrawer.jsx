@@ -43,6 +43,7 @@ const ProductDrawer = ({ id }) => {
   const { t } = useTranslation();
 
   const {
+ 
     tag,
     setTag,
     values,
@@ -88,7 +89,6 @@ const ProductDrawer = ({ id }) => {
     handleSelectInlineImage,
     handleGenerateCombination,
   } = useProductSubmit(id);
-console.log("commission value->", values.commission);
 
   const { currency, showingTranslateValue } = useUtilsFunction();
 
@@ -290,6 +290,25 @@ console.log("commission value->", values.commission);
                   <Error errorName={errors.originalPrice} />
                 </div>
               </div>
+              <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
+                <LabelArea label="Gst (%)" />
+                <div className="col-span-8 sm:col-span-4">
+                  <InputValue
+                    disabled={isCombination}
+                    product
+                    register={register}
+                    minValue={0}
+                    defaultValue={0.0}
+                    required={true}
+                    label="Gst"
+                    name="gst"
+                    type="number"
+                    placeholder="Gst in %"
+                    currency={"%"}
+                  />
+                  <Error errorName={errors.gst} />
+                </div>
+              </div>
 
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
                 <LabelArea label={t("SalePrice")} />
@@ -329,18 +348,18 @@ console.log("commission value->", values.commission);
                 </div>
               </div>
               <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6 relative">
-                <LabelArea label={t("commission ( % )")} />
+                <LabelArea label={"Commission (%)"} />
                 <div className="col-span-8 sm:col-span-4">
                   <InputValueFive
-                    required={false}
-                    // disabled={isCombination}
+                    required={true}
+                    disabled={isCombination}
                     register={register}
                     minValue={0}
-                    defaultValue={values.commission }
-                    label="commission"
+                    defaultValue={0}
+                    label="Commission"
                     name="commission"
                     type="number"
-                    placeholder={t("Add commission in %")}
+                    placeholder={"Commission in %"}
                   />
                   <Error errorName={errors.commission} />
                 </div>

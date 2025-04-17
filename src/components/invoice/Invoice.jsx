@@ -24,7 +24,14 @@ const Invoice = ({ data, currency, getNumberTwo }) => {
             </TableCell>
             <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-center">
               {currency}
-              {getNumberTwo(item.price)}
+              {/* {getNumberTwo(item.price)} */}
+              {getNumberTwo(
+                (item.price * 100) / (100 + (item.prices.gst ?? 0))
+              )}
+            </TableCell>
+            <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-center">
+              {getNumberTwo(item.prices.gst)}
+              {" %"}
             </TableCell>
 
             <TableCell className="px-6 py-1 whitespace-nowrap text-right font-bold text-red-500 dark:text-emerald-500">

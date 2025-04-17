@@ -35,6 +35,8 @@ const useProductSubmit = (id) => {
 
   const [originalPrice, setOriginalPrice] = useState(0);
   const [price, setPrice] = useState(0);
+
+
   const [sku, setSku] = useState("");
   const [barcode, setBarcode] = useState("");
   const [isBasicComplete, setIsBasicComplete] = useState(false);
@@ -54,7 +56,6 @@ const useProductSubmit = (id) => {
   const [openModal, setOpenModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [slug, setSlug] = useState("");
-
   const { handlerTextTranslateHandler } = useTranslationValue();
   const { showingTranslateValue, getNumber, getNumberTwo } = useUtilsFunction();
 
@@ -81,11 +82,14 @@ const useProductSubmit = (id) => {
   // console.log("res", resData);
 
   const onSubmit = async (data) => {
-    // console.log('data is data',data)
+    // console.log('data ',data)
     try {
       setIsSubmitting(true);
-      if (!imageUrl) return notifyError("Image is required!");
-
+      // console.log("image url",imageUrl.length,imageUrl)
+      if (imageUrl.length < 1) {
+         notifyError("Image is required!"); 
+        return setIsSubmitting(false);
+        }
       if (data.originalPrice < data.price) {
         setIsSubmitting(false);
         return notifyError(
@@ -125,11 +129,14 @@ const useProductSubmit = (id) => {
         language,
         resData?.description
       );
+      // const gstAmount =(Number(data.price) * Number(data.gst))/100;
+      // const finalPrice = Number(data.price) + gstAmount;
 
       const productData = {
         productId: productId,
         sku: data.sku || "",
         barcode: data.barcode || "",
+        commission: data.commission || 0,
         title: {
           ...titleTranslates,
           [language]: data.title,
@@ -153,8 +160,8 @@ const useProductSubmit = (id) => {
           price: getNumber(data.price),
           originalPrice: getNumberTwo(data.originalPrice),
           discount: Number(data.originalPrice) - Number(data.price),
+          gst: Number(data.gst),
         },
-        commission: data.commission || 0,
         isCombination: updatedVariants?.length > 0 ? isCombination : false,
         variants: isCombination ? updatedVariants : [],
       };
@@ -262,7 +269,7 @@ const useProductSubmit = (id) => {
       setValue("price");
       setValue("barcode");
       setValue("productId");
-
+      setValue("commission");
       setProductId("");
       // setValue('show');
       setImageUrl([]);
@@ -306,7 +313,7 @@ const useProductSubmit = (id) => {
         try {
           const res = await ProductServices.getProductById(id);
 
-          // console.log("res", res);
+          console.log("res", res.commission);
 
           if (res) {
             setResData(res);
@@ -322,8 +329,10 @@ const useProductSubmit = (id) => {
             setValue("sku", res.sku);
             setValue("barcode", res.barcode);
             setValue("stock", res.stock);
+            setValue("commission", res?.commission);
             setValue("productId", res.productId);
             setValue("price", res?.prices?.price);
+            setValue("gst", res?.prices?.gst);
             setValue("originalPrice", res?.prices?.originalPrice);
             setValue("stock", res.stock);
             setProductId(res.productId ? res.productId : res._id);
