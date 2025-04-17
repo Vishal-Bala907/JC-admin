@@ -2,6 +2,8 @@ import React from "react";
 import { TableCell, TableBody, TableRow } from "@windmill/react-ui";
 
 const Invoice = ({ data, currency, getNumberTwo }) => {
+  console.log(data);
+
   return (
     <>
       <TableBody className="bg-white dark:bg-gray-800 divide-y divide-gray-100 text-serif text-sm ">
@@ -26,11 +28,11 @@ const Invoice = ({ data, currency, getNumberTwo }) => {
               {currency}
               {/* {getNumberTwo(item.price)} */}
               {getNumberTwo(
-                (item.price * 100) / (100 + (item.prices.gst ?? 0))
+                (item.price * 100) / (100 + (item.prices?.gst ?? 0))
               )}
             </TableCell>
             <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-center">
-              {getNumberTwo(item.prices.gst)}
+              {getNumberTwo(item.prices?.gst ?? 0)}
               {" %"}
             </TableCell>
 

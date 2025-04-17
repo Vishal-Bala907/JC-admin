@@ -585,7 +585,7 @@ const InvoiceForDownload = ({
                       {"₹"}
                       {/* {getNumberTwo(item.price)} */}
                       {getNumberTwo(
-                        (item.price * 100) / (100 + (item.prices.gst ?? 0))
+                        (item.price * 100) / (100 + (item.prices?.gst ?? 0))
                       )}
                     </Text>
                   </Text>
@@ -600,7 +600,7 @@ const InvoiceForDownload = ({
                         fontFamily: "Open Sans",
                       }}
                     >
-                      {getNumberTwo(item.prices.gst)}
+                      {getNumberTwo(item.prices?.gst)}
                       {"%"}
                     </Text>
                   </Text>
