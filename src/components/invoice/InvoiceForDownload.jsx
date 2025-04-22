@@ -362,7 +362,7 @@ const InvoiceForDownload = ({
                   textAlign: "right",
                 }}
               >
-      {console.log("globalSetting", globalSetting)}
+      {/* {console.log("globalSetting", globalSetting)} */}
                 {globalSetting?.address}
                 {"\n"}
                 {globalSetting?.contact}
