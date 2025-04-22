@@ -322,7 +322,7 @@ const InvoiceForDownload = ({
                   <Text style={{ color: "#f43f5e" }}>{data?.status}</Text>
                 )}
               </Text>
-              {globalSetting?.vat_number && (
+              {/* {globalSetting?.vat_number && (
                 <Text style={styles.info}>
                   <Text className="font-semibold text-xs capitalize mt-2">
                     VAT Number :{" "}
@@ -331,7 +331,7 @@ const InvoiceForDownload = ({
                     </Text>
                   </Text>
                 </Text>
-              )}
+              )} */}
             </View>
 
             <View style={{ alignItems: "flex-end" }}>
