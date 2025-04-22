@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: "right",
     color: "#4b5563",
-    fontFamily: "Open Sans",
+    fontFamily: "DejaVu Sans",
     fontWeight: "bold",
     fontSize: 10.3,
 
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#2f3032",
-    fontFamily: "Open Sans",
+    fontFamily: "DejaVu Sans",
     fontWeight: "bold",
     fontSize: 8.1,
     textTransform: "uppercase",
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
   totalAmount: {
     fontSize: 10,
     color: "#ef4444",
-    fontFamily: "Open Sans",
+    fontFamily: "DejaVu Sans",
     fontWeight: "bold",
     textTransform: "uppercase",
     textAlign: "right",
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
   header: {
     color: "#6b7280",
     fontSize: 9,
-    fontFamily: "Open Sans",
+    fontFamily: "DejaVu Sans",
     fontWeight: "bold",
     textTransform: "uppercase",
     textAlign: "left",
@@ -247,11 +247,11 @@ const styles = StyleSheet.create({
     color: "#6b7280",
     width: "25%",
     marginRight: "39%",
-    fontFamily: "Open Sans",
+    fontFamily: "DejaVu Sans",
   },
   titleRight: {
     textAlign: "right",
-    fontFamily: "Open Sans",
+    fontFamily: "DejaVu Sans",
     fontWeight: "bold",
     fontSize: 8.1,
     width: "25%",
@@ -284,7 +284,7 @@ const InvoiceForDownload = ({
             <View style={styles.invoiceDiv}>
               <Text
                 style={{
-                  fontFamily: "Open Sans",
+                  fontFamily: "DejaVu Sans",
                   fontWeight: "bold",
                   textTransform: "uppercase",
                   alignItems: "baseline",
@@ -345,9 +345,9 @@ const InvoiceForDownload = ({
               >
                 <Image
                   src={logoDark}
-                  alt="kachabazar"
+                  alt="logo"
                   style={{
-                    width: 90,
+                    width: 100,
                     alignItems: "right",
                     textAlign: "right",
                     float: "right",
@@ -357,11 +357,12 @@ const InvoiceForDownload = ({
               <Text
                 style={{
                   fontSize: 9,
-                  color: "#888",
+                  color: "black",
                   marginTop: 2,
                   textAlign: "right",
                 }}
               >
+      {console.log("globalSetting", globalSetting)}
                 {globalSetting?.address}
                 {"\n"}
                 {globalSetting?.contact}
@@ -474,7 +475,7 @@ const InvoiceForDownload = ({
                     style={{
                       color: "#6b7280",
                       fontSize: 9,
-                      fontFamily: "Open Sans",
+                      fontFamily: "DejaVu Sans",
                       fontWeight: "bold",
                       textTransform: "uppercase",
                       textAlign: "left",
@@ -490,7 +491,7 @@ const InvoiceForDownload = ({
                     style={{
                       color: "#6b7280",
                       fontSize: 9,
-                      fontFamily: "Open Sans",
+                      fontFamily: "DejaVu Sans",
                       fontWeight: "bold",
                       textTransform: "uppercase",
                       textAlign: "center",
@@ -506,7 +507,7 @@ const InvoiceForDownload = ({
                     style={{
                       color: "#6b7280",
                       fontSize: 9,
-                      fontFamily: "Open Sans",
+                      fontFamily: "DejaVu Sans",
                       fontWeight: "bold",
                       textTransform: "uppercase",
                       textAlign: "left",
@@ -522,7 +523,7 @@ const InvoiceForDownload = ({
                     style={{
                       color: "#6b7280",
                       fontSize: 9,
-                      fontFamily: "Open Sans",
+                      fontFamily: "DejaVu Sans",
                       fontWeight: "bold",
                       textTransform: "uppercase",
                       textAlign: "left",
@@ -539,7 +540,7 @@ const InvoiceForDownload = ({
                     style={{
                       color: "#6b7280",
                       fontSize: 9,
-                      fontFamily: "Open Sans",
+                      fontFamily: "DejaVu Sans",
                       fontWeight: "bold",
                       textTransform: "uppercase",
                       textAlign: "right",
@@ -565,7 +566,7 @@ const InvoiceForDownload = ({
                         fontWeight: "bold",
                         textAlign: "center",
                         alignItems: "center",
-                        fontFamily: "Open Sans",
+                        fontFamily: "DejaVu Sans",
                       }}
                     >
                       {item.quantity}
@@ -579,10 +580,11 @@ const InvoiceForDownload = ({
                         fontSize: 10,
                         fontWeight: "bold",
                         textAlign: "left",
-                        fontFamily: "Open Sans",
+                        fontFamily: "DejaVu Sans",
                       }}
                     >
-                      {"₹"}
+                      {/* {"₹"} */}
+                      {currency}
                       {/* {getNumberTwo(item.price)} */}
                       {getNumberTwo(
                         (item.price * 100) / (100 + (item.prices?.gst ?? 0))
@@ -597,7 +599,7 @@ const InvoiceForDownload = ({
                         fontSize: 10,
                         fontWeight: "bold",
                         textAlign: "left",
-                        fontFamily: "Open Sans",
+                        fontFamily: "DejaVu Sans",
                       }}
                     >
                       {getNumberTwo(item.prices?.gst)}
@@ -613,7 +615,7 @@ const InvoiceForDownload = ({
                         color: "#ef4444",
                         fontWeight: "bold",
                         textAlign: "right",
-                        fontFamily: "Open Sans",
+                        fontFamily: "DejaVu Sans",
                       }}
                     >
                       {currency}

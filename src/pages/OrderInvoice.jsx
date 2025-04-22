@@ -245,6 +245,7 @@ const OrderInvoice = () => {
               <InvoiceForDownload
                 t={t}
                 data={data}
+                globalSetting={globalSetting}
                 currency={currency}
                 getNumberTwo={getNumberTwo}
                 showDateFormat={showDateFormat}
