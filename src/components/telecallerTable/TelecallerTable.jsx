@@ -26,7 +26,7 @@ const TelecallerTable = ({ staffs, lang }) => {
     isSubmitting,
     handleResetPassword,
   } = useToggleDrawer();
-  console.log(staffs);
+  // console.log(staffs);
 
   const { showDateFormat, showingTranslateValue } = useUtilsFunction();
   // State for access list modal
