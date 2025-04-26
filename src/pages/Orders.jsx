@@ -70,7 +70,7 @@ const Orders = () => {
   );
 
   const { currency, getNumber, getNumberTwo } = useUtilsFunction();
-
+  // console.log("data ->  ",data);
   const { dataTable, serviceData } = useFilter(data?.orders);
 
   const handleDownloadOrders = async () => {
@@ -306,6 +306,11 @@ const Orders = () => {
                 <TableCell>{t("MethodTbl")}</TableCell>
                 <TableCell>{t("AmountTbl")}</TableCell>
                 <TableCell>{t("OderStatusTbl")}</TableCell>
+            
+                <TableCell>Phone</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Ordered By</TableCell>
                 <TableCell>{t("ActionTbl")}</TableCell>
                 <TableCell className="text-right">{t("InvoiceTbl")}</TableCell>
               </tr>

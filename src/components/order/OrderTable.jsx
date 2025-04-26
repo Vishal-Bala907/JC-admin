@@ -17,7 +17,7 @@ const OrderTable = ({ orders }) => {
   const { t } = useTranslation();
   const { showDateTimeFormat, currency, getNumberTwo } = useUtilsFunction();
 
-  // console.log('orders',orders)
+  console.log("orders", orders);
 
   return (
     <>
@@ -25,6 +25,7 @@ const OrderTable = ({ orders }) => {
         {orders?.map((order, i) => (
           <TableRow key={i + 1}>
             <TableCell>
+              {/* {console.log("orderedby", order?.orderedBy?.name ?? "N/A")} */}
               <span className="font-semibold uppercase text-xs">
                 {order?.invoice}
               </span>
@@ -55,6 +56,25 @@ const OrderTable = ({ orders }) => {
 
             <TableCell className="text-xs">
               <Status status={order?.status} />
+            </TableCell>
+
+            <TableCell className="text-xs">
+              <span className="text-sm">
+                {order?.orderedBy?.contact ?? "N/A"}
+              </span>
+            </TableCell>
+            <TableCell className="text-xs">
+              <span className="text-sm">
+     
+                {order?.orderedBy?.email ?? "N/A"}
+              </span>
+            </TableCell>
+            <TableCell className="text-xs">
+           
+              <span className="text-sm">{order?.orderedBy?.name ?? "N/A"}</span>
+            </TableCell>
+            <TableCell className="text-xs">
+              <span className="text-sm">{order?.orderedBy?.role ?? "N/A"}</span>{" "}
             </TableCell>
 
             <TableCell className="text-center">
