@@ -41,14 +41,14 @@ const AttributeOptionTwo = ({
   }, [selectedValueClear]);
 
   return (
-    <div>
-      <MultiSelect
-        options={attributeOptions}
-        value={selected}
-        onChange={(v) => handleSelectValue(v)}
-        labelledBy="Select"
-      />
-    </div>
+      <div className="md:w-full  md:min-h-64 md:overflow-y-scroll">
+       <MultiSelect
+         options={attributeOptions}
+         value={selected}
+         onChange={(v) => handleSelectValue(v)}
+         labelledBy="Select"
+       />
+     </div>
   );
 };
 
