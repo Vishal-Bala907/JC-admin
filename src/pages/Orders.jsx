@@ -306,12 +306,12 @@ const Orders = () => {
                 <TableCell>{t("MethodTbl")}</TableCell>
                 <TableCell>{t("AmountTbl")}</TableCell>
                 <TableCell>{t("OderStatusTbl")}</TableCell>
-            
-                <TableCell>Phone</TableCell>
+
+                {/* <TableCell>Phone</TableCell>
                 <TableCell>Email</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Ordered By</TableCell>
+                <TableCell>Name</TableCell>*/}
                 <TableCell>{t("ActionTbl")}</TableCell>
+                <TableCell>view Details</TableCell>
                 <TableCell className="text-right">{t("InvoiceTbl")}</TableCell>
               </tr>
             </TableHeader>
