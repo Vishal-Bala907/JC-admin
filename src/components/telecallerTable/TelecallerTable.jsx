@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { FiZoomIn } from "react-icons/fi";
 
 //internal import
-
 import Status from "@/components/table/Status";
 import useUtilsFunction from "@/hooks/useUtilsFunction";
 import MainDrawer from "@/components/drawer/MainDrawer";
@@ -77,6 +76,18 @@ const TelecallerTable = ({ staffs, lang }) => {
     }
   };
 
+  // Function to get row background color based on status
+  const getRowBackgroundColor = (status) => {
+    switch (status) {
+      case "Accepted":
+        return "bg-green-100 hover:bg-green-200 transition-colors duration-150";
+      case "Rejected":
+        return "bg-red-100 hover:bg-red-200 transition-colors duration-150";
+      default:
+        return "bg-yellow-100 hover:bg-yellow-200 transition-colors duration-150";
+    }
+  };
+
   return (
     <>
       <DeleteModal id={serviceId} title={title} />
@@ -96,97 +107,60 @@ const TelecallerTable = ({ staffs, lang }) => {
 
       <TableBody>
         {staffs?.map((staff) => (
-          <TableRow key={staff._id}>
-            {/* <TableCell>
-              <div className="flex items-center">
-                <Avatar
-                  className="hidden mr-3 md:block bg-gray-50"
-                  src={staff.image}
-                  alt="staff"
-                />
-                <div>
-                  <h2 className="text-sm font-medium">
-                    {showingTranslateValue(staff?.name)}
-                  </h2>
-                </div>
-              </div>
-            </TableCell> */}
-
+          <TableRow
+            key={staff._id}
+            className={getRowBackgroundColor(staffStatus[staff._id])}
+          >
             <TableCell>
-              <span className="text-sm">{staff.name}</span>{" "}
+              <span className="text-sm font-medium">{staff.name}</span>
             </TableCell>
             <TableCell>
-              <span className="text-sm ">{staff.email}</span>
+              <span className="text-sm">{staff.email}</span>
             </TableCell>
             <TableCell>
-              <span className="text-sm ">{staff.mobile}</span>
+              <span className="text-sm">{staff.mobile}</span>
             </TableCell>
             <TableCell>
-              <span className="text-sm ">{staff.city}</span>
+              <span className="text-sm">{staff.city}</span>
             </TableCell>
             <TableCell>
-              <span className="text-sm ">{staff.state}</span>
+              <span className="text-sm">{staff.state}</span>
             </TableCell>
             <TableCell>
-              <span className="text-sm ">{staff.pinCode}</span>
+              <span className="text-sm">{staff.pinCode}</span>
             </TableCell>
             <TableCell>
-              <span className="text-sm ">{staff.pan}</span>
+              <span className="text-sm">{staff.pan}</span>
             </TableCell>
             <TableCell>
-              <span className="text-sm ">{staff.aadhar}</span>
+              <span className="text-sm">{staff.aadhar}</span>
             </TableCell>
             <TableCell>
-              <span className="text-sm ">{staff.bankAccNumber}</span>
+              <span className="text-sm">{staff.bankAccNumber}</span>
             </TableCell>
             <TableCell>
-              <span className="text-sm ">{staff.IFSC}</span>
+              <span className="text-sm">{staff.IFSC}</span>
             </TableCell>
             <TableCell>
-              <span className="text-sm ">{staff.accountHolderName}</span>
+              <span className="text-sm">{staff.accountHolderName}</span>
             </TableCell>
             <TableCell>
               <select
-                className="px-2 py-1 rounded-md bg-white text-black"
+                className="px-2 py-1 rounded-md bg-white text-black border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 value={staffStatus[staff._id]}
-                id=""
-                onChange={(e) => {
-                  handleStatusChange(e, staff._id);
-                }}
+                onChange={(e) => handleStatusChange(e, staff._id)}
               >
                 <option value="Accepted">Active</option>
                 <option value="Hold">Hold</option>
                 <option value="Rejected">Rejected</option>
               </select>
-              {/* <span className="text-sm ">{staff.status}</span> */}
             </TableCell>
-
+            {/* Additional action buttons can be uncommented if needed */}
             {/* <TableCell>
-              <span className="text-sm">
-                {showDateFormat(staff.joiningData)}
-              </span>
-            </TableCell>
-            <TableCell>
-              <span className="text-sm font-semibold">{staff?.role}</span>
-            </TableCell>
-            <TableCell className="text-center text-xs">
-              <Status status={staff.status} />
-            </TableCell> */}
-
-            {/* <TableCell className="text-center">
-              <ActiveInActiveButton
-                id={staff?._id}
-                staff={staff}
-                option="staff"
-                status={staff.status}
-              />
-            </TableCell>
-
-            <TableCell>
               <div className="flex justify-between items-center">
                 <button
                   onClick={() => handleAccessModalOpen(staff)}
-                  className="text-gray-400"
+                  className="text-gray-400 hover:text-gray-700"
                 >
                   <Tooltip
                     id="view"
