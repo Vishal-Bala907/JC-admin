@@ -366,6 +366,7 @@ const Dashboard = () => {
                 <TableCell> {t("AmountTbl")} </TableCell>
                 <TableCell>{t("OderStatusTbl")}</TableCell>
                 <TableCell>{t("ActionTbl")}</TableCell>
+                <TableCell>{"view Details"}</TableCell>
                 <TableCell className="text-right">{t("InvoiceTbl")}</TableCell>
               </tr>
             </TableHeader>

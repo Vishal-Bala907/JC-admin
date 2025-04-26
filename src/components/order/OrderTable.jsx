@@ -3,6 +3,7 @@ import { TableBody, TableCell, TableRow } from "@windmill/react-ui";
 import { useTranslation } from "react-i18next";
 import { FiZoomIn } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { FaEye } from "react-icons/fa";
 
 //internal import
 
@@ -58,7 +59,7 @@ const OrderTable = ({ orders }) => {
               <Status status={order?.status} />
             </TableCell>
 
-            <TableCell className="text-xs">
+            {/* <TableCell className="text-xs">
               <span className="text-sm">
                 {order?.orderedBy?.contact ?? "N/A"}
               </span>
@@ -75,12 +76,42 @@ const OrderTable = ({ orders }) => {
             </TableCell>
             <TableCell className="text-xs">
               <span className="text-sm">{order?.orderedBy?.role ?? "N/A"}</span>{" "}
-            </TableCell>
+            </TableCell> */}
 
             <TableCell className="text-center">
               <SelectStatus id={order._id} order={order} />
             </TableCell>
 
+            {/* <TableCell className="text-right flex ">
+              <span className="p-2 cursor-pointer text-gray-400 hover:text-emerald-600">
+                <Link
+                  className="flex flex-nowrap gap-1"
+                  to={`/orderedby/${order._id}`}
+                >
+                  View{" "}
+                  <Tooltip
+                    id="view"
+                    Icon={FaEye}
+                    title={"View Details"}
+                    bgColor="#059669"
+                  />
+                </Link>
+              </span>
+            </TableCell> */}
+            <TableCell className="text-gray-500 hover:text-emerald-600">
+              <Link
+                className="flex flex-nowrap gap-1 items-center justify-center "
+                to={`/orderedby/${order._id}`}
+              >
+                View <FaEye/>
+                {/* <Tooltip
+                  id="view"
+                  Icon={FaEye}
+                  title={"View "}
+                  bgColor="#059669"
+                /> */}
+              </Link>
+            </TableCell>
             <TableCell className="text-right flex justify-end">
               <div className="flex justify-between items-center">
                 <PrintReceipt orderId={order._id} />
