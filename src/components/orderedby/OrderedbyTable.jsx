@@ -13,7 +13,7 @@ const OrderedbyTable = ({ data, currency, getNumberTwo }) => {
           </TableCell>
           <TableCell className="px-6 py-1 whitespace-nowrap font-normal text-gray-500">
             <span
-              className={`text-gray-700 font-semibold dark:text-gray-300 text-xs ${
+              className={`text-gray-700 font-semibold dark:text-gray-300 text-md ${
                 item.title.length > 15 ? "wrap-long-title" : ""
               }`}
             >
@@ -33,18 +33,7 @@ const OrderedbyTable = ({ data, currency, getNumberTwo }) => {
           </TableCell>
 
           {/*orderedBy */}
-          <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-center">
-            {data?.orderedBy?.contact ?? "N/A"}
-          </TableCell>
-          <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-center">
-            {data?.orderedBy?.email ?? "N/A"}
-          </TableCell>
-          <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-center">
-            {data?.orderedBy?.name ?? "N/A"}
-          </TableCell>
-          <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-center">
-            {data?.orderedBy?.role ?? "N/A"}
-          </TableCell> 
+ 
 
           <TableCell className="px-6 py-1 whitespace-nowrap text-right font-bold text-red-500 dark:text-emerald-500">
             {currency}
