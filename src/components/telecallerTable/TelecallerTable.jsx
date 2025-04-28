@@ -145,6 +145,9 @@ const TelecallerTable = ({ staffs, lang }) => {
               <span className="text-sm">{staff.accountHolderName}</span>
             </TableCell>
             <TableCell>
+              <span className="text-sm">{staff.accountHolderName}</span>
+            </TableCell>
+            <TableCell>
               <select
                 className="px-2 py-1 rounded-md bg-white text-black border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 value={staffStatus[staff._id]}
@@ -155,6 +158,7 @@ const TelecallerTable = ({ staffs, lang }) => {
                 <option value="Rejected">Rejected</option>
               </select>
             </TableCell>
+
             {/* Additional action buttons can be uncommented if needed */}
             {/* <TableCell>
               <div className="flex justify-between items-center">
