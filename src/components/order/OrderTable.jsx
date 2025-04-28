@@ -12,12 +12,25 @@ import Tooltip from "@/components/tooltip/Tooltip";
 import useUtilsFunction from "@/hooks/useUtilsFunction";
 import PrintReceipt from "@/components/form/others/PrintReceipt";
 import SelectStatus from "@/components/form/selectOption/SelectStatus";
+import { useState } from "react";
+import OrderByModal from "../orderedby/OrderByModal";
 
 const OrderTable = ({ orders }) => {
   // console.log('globalSetting',globalSetting)
   const { t } = useTranslation();
   const { showDateTimeFormat, currency, getNumberTwo } = useUtilsFunction();
+const [showModal, setShowModal] = useState(false);
+const [selectedOrderId, setSelectedOrderId] = useState(null);
 
+const handleViewClick = (orderId) => {
+  setSelectedOrderId(orderId);
+  setShowModal(true);
+};
+
+const handleCloseModal = () => {
+  setShowModal(false);
+  setSelectedOrderId(null);
+};
   // console.log("orders", orders);
 
   return (
@@ -99,18 +112,12 @@ const OrderTable = ({ orders }) => {
               </span>
             </TableCell> */}
             <TableCell className="text-gray-500 hover:text-emerald-600">
-              <Link
-                className="flex flex-nowrap gap-1 items-center justify-center "
-                to={`/orderedby/${order._id}`}
+              <span
+                className="flex flex-nowrap gap-1 items-center justify-center cursor-pointer"
+                onClick={() => handleViewClick(order._id)}
               >
-                View <FaEye/>
-                {/* <Tooltip
-                  id="view"
-                  Icon={FaEye}
-                  title={"View "}
-                  bgColor="#059669"
-                /> */}
-              </Link>
+                View <FaEye />
+              </span>
             </TableCell>
             <TableCell className="text-right flex justify-end">
               <div className="flex justify-between items-center">
@@ -131,6 +138,11 @@ const OrderTable = ({ orders }) => {
           </TableRow>
         ))}
       </TableBody>
+      <OrderByModal
+        isOpen={showModal}
+        orderId={selectedOrderId}
+        onClose={handleCloseModal}
+      />
     </>
   );
 };
