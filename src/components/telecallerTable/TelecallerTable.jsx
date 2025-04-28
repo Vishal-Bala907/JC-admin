@@ -16,6 +16,8 @@ import AccessListModal from "@/components/modal/AccessListModal";
 import AdminServices from "@/services/AdminServices";
 import { toast } from "react-toastify";
 import useAsync from "@/hooks/useAsync";
+import TelecallerOrderModal from "./TelecallerOrderModal";
+import { FaEye } from "react-icons/fa";
 
 const TelecallerTable = ({ staffs, lang }) => {
   const {
@@ -26,7 +28,7 @@ const TelecallerTable = ({ staffs, lang }) => {
     isSubmitting,
     handleResetPassword,
   } = useToggleDrawer();
-  // console.log(staffs);
+  console.log("staff",staffs);
 
   const { showDateFormat, showingTranslateValue } = useUtilsFunction();
   // State for access list modal
@@ -38,7 +40,8 @@ const TelecallerTable = ({ staffs, lang }) => {
     setSelectedStaff(staff);
     setIsAccessModalOpen(true);
   };
-
+const [showModal, setShowModal] = useState(false);
+const [selectedStaffId, setSelectedStaffId] = useState(null);
   // Function to close the access list modal
   const handleAccessModalClose = () => {
     setSelectedStaff(null);
@@ -87,7 +90,15 @@ const TelecallerTable = ({ staffs, lang }) => {
         return "bg-yellow-100 hover:bg-yellow-200 transition-colors duration-150";
     }
   };
+  const handleViewClick = (staffId) => {
+    setSelectedStaffId(staffId);
+    setShowModal(true);
+  };
 
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedStaffId(null);
+  };
   return (
     <>
       <DeleteModal id={serviceId} title={title} />
@@ -144,8 +155,13 @@ const TelecallerTable = ({ staffs, lang }) => {
             <TableCell>
               <span className="text-sm">{staff.accountHolderName}</span>
             </TableCell>
-            <TableCell>
-              <span className="text-sm">{staff.accountHolderName}</span>
+            <TableCell className="text-gray-500 hover:text-emerald-600">
+              <span
+                className="flex flex-nowrap gap-1 items-center justify-center cursor-pointer"
+                onClick={() => handleViewClick(staff._id)}
+              >
+                View <FaEye />
+              </span>
             </TableCell>
             <TableCell>
               <select
@@ -187,6 +203,11 @@ const TelecallerTable = ({ staffs, lang }) => {
           </TableRow>
         ))}
       </TableBody>
+      <TelecallerOrderModal
+        isOpen={showModal}
+        staffId={selectedStaffId}
+        onClose={handleCloseModal}
+      />
     </>
   );
 };

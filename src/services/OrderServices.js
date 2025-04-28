@@ -53,6 +53,9 @@ const OrderServices = {
   getOrderById: async (id, body) => {
     return requests.get(`/orders/${id}`, body);
   },
+  getTelecallerOrderById: async (id, params = {}) => {
+    return requests.get(`/telecaller-orders/${id}`, { params });
+  },
 
   updateOrder: async (id, body, headers) => {
     return requests.put(`/orders/${id}`, body, headers);
