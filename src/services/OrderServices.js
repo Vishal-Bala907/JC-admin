@@ -54,7 +54,7 @@ const OrderServices = {
     return requests.get(`/orders/${id}`, body);
   },
   getTelecallerOrderById: async (id, params = {}) => {
-    return requests.get(`/telecaller-orders/${id}`, { params });
+    return requests.get(`/tele/telecaller-orders/${id}`, { params });
   },
 
   updateOrder: async (id, body, headers) => {

@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 
 import {
   TableCell,
@@ -26,26 +26,44 @@ import spinnerLoadingImage from "@/assets/img/spinner.gif";
 import useUtilsFunction from "@/hooks/useUtilsFunction";
 import TelecallerOrderTable from "./TelecallerOrderTable";
 
-
-
 const ViewOrder = ({ staffId, onClose }) => {
   const { t } = useTranslation();
-
   const { state } = useContext(AdminContext);
-
-  // const { id } = useParams();
-    const id = staffId;
+  const id = staffId;
   const printRef = useRef();
 
- const { data, loading, error } = useAsync(() =>
-   OrderServices.getTelecallerOrderById(id, { page: 1, limit: 10 })
- );
-
-
-  // console.log("data", data);
+  // Add pagination state
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10); // Default limit
+  const [orderData, setOrderData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const { currency, globalSetting, showDateFormat, getNumberTwo } =
     useUtilsFunction();
+
+  // Fetch data with pagination
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const params = {
+          page: page,
+          limit: limit,
+        };
+
+        const result = await OrderServices.getTelecallerOrderById(id, params);
+        setOrderData(result);
+        setError(null);
+      } catch (err) {
+        setError(err.message || "An error occurred while fetching the data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [id, page, limit]);
 
   return (
     <>
@@ -84,7 +102,7 @@ const ViewOrder = ({ staffId, onClose }) => {
                   </tr>
                 </TableHeader>
                 <TelecallerOrderTable
-                  data={data}
+                  data={orderData}
                   currency={currency}
                   getNumberTwo={getNumberTwo}
                 />
@@ -93,7 +111,7 @@ const ViewOrder = ({ staffId, onClose }) => {
           )}
         </div>
 
-        {!loading && (
+        {!loading && orderData && (
           <div className="border rounded-xl border-gray-100 p-3 bg-gray-50 dark:bg-gray-900 dark:border-gray-800">
             <div className="flex lg:flex-row md:flex-row flex-col justify-around">
               <div className="mb-3 md:mb-0 lg:mb-0  flex flex-col sm:flex-wrap">
@@ -101,7 +119,7 @@ const ViewOrder = ({ staffId, onClose }) => {
                   {t("InvoicepaymentMethod")}
                 </span>
                 <span className="text-sm text-gray-500 dark:text-gray-400 font-semibold font-serif block text-center">
-                  {data.paymentMethod}
+                  {orderData.paymentMethod}
                 </span>
               </div>
               <div className="mb-3 md:mb-0 lg:mb-0  flex flex-col sm:flex-wrap">
@@ -110,7 +128,7 @@ const ViewOrder = ({ staffId, onClose }) => {
                 </span>
                 <span className="text-sm text-gray-500 dark:text-gray-400 font-semibold font-serif block text-center">
                   {currency}
-                  {getNumberTwo(data.shippingCost)}
+                  {getNumberTwo(orderData.shippingCost)}
                 </span>
               </div>
               <div className="mb-3 md:mb-0 px-3 lg:mb-0  flex flex-col sm:flex-wrap">
@@ -119,7 +137,7 @@ const ViewOrder = ({ staffId, onClose }) => {
                 </span>
                 <span className="text-sm text-gray-500 dark:text-gray-400 font-semibold font-serif block text-center">
                   {currency}
-                  {getNumberTwo(data.discount)}
+                  {getNumberTwo(orderData.discount)}
                 </span>
               </div>
               <div className="flex flex-col sm:flex-wrap">
@@ -128,10 +146,30 @@ const ViewOrder = ({ staffId, onClose }) => {
                 </span>
                 <span className="text-lg font-serif font-bold text-red-500 dark:text-emerald-500 block text-center">
                   {currency}
-                  {getNumberTwo(data.total)}
+                  {getNumberTwo(orderData.total)}
                 </span>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Add pagination controls */}
+        {!loading && orderData && (
+          <div className="flex justify-between items-center p-4">
+            <button
+              onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 1))}
+              disabled={page === 1}
+              className="px-3 py-1 bg-gray-200 rounded-md disabled:opacity-50"
+            >
+              Previous
+            </button>
+            <span>Page {page}</span>
+            <button
+              onClick={() => setPage((prevPage) => prevPage + 1)}
+              className="px-3 py-1 bg-gray-200 rounded-md"
+            >
+              Next
+            </button>
           </div>
         )}
       </div>
