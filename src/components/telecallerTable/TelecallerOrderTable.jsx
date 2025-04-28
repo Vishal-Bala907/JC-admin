@@ -23,6 +23,8 @@ const TelecallerOrderTable = ({ orders, currency, getNumberTwo }) => {
       {orders.map((order, i) => (
         <React.Fragment key={i}>
           {order.cart?.map((item, j) => (
+            console.log("item", item),
+            console.log("j", j),
             <TableRow
               key={`${i}-${j}`}
               className="dark:border-gray-700 dark:text-gray-400"

@@ -33,7 +33,7 @@ const ViewOrder = ({ staffId, onClose }) => {
 
   // Add pagination state
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(1000); // Default limit
+  const [limit, setLimit] = useState(1); // Default limit
   const [telecallerData, setTelecallerData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -229,7 +229,8 @@ const ViewOrder = ({ staffId, onClose }) => {
             </span>
             <button
               onClick={() => setPage((prevPage) => prevPage + 1)}
-              disabled={page >= totalPages}
+              // disabled={page >= totalPages}
+              // disabled={}
               className="px-3 py-1 bg-gray-200 rounded-md disabled:opacity-50"
             >
               Next

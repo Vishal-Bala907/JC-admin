@@ -54,7 +54,7 @@ const Telecallers = () => {
   } = useFilter(data);
 
   const { t } = useTranslation();
-  console.log(dataTable);
+  // console.log(dataTable);
 
   // handle reset filed
   const handleResetField = () => {
