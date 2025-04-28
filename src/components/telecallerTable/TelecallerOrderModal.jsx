@@ -9,7 +9,7 @@ const TelecallerOrderModal = ({ isOpen, onClose, staffId, children }) => {
   return ReactDOM.createPortal(
     // ✨ Create portal here
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-2xl shadow-xl p-6 min-h-screen max-w-5xl relative">
+      <div className="bg-white shadow-xl p-6 min-h-screen min-w-full relative">
         {/* Close Button */}
         <button
           onClick={onClose}
