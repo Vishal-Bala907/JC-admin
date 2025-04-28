@@ -1,5 +1,3 @@
-import { useParams } from "react-router";
-
 import React, { useContext, useRef, useState } from "react";
 
 import {
@@ -47,19 +45,43 @@ const OrderedBy = ({ orderId, onClose }) => {
     useUtilsFunction();
 
   return (
-    <>
+    <div >
+      <div className="p-4">
       <PageTitle> Order Details </PageTitle>
-
+      </div>
       <div
         ref={printRef}
         className="bg-white dark:bg-gray-800 mb-4 rounded-xl shadow-sm overflow-hidden"
       >
-        <div>
-          {loading ? (
-            <Loading loading={loading} />
-          ) : error ? (
-            <span className="text-center mx-auto text-red-500">{error}</span>
-          ) : (
+        {loading ? (
+          <Loading loading={loading} />
+        ) : error ? (
+          <span className="text-center mx-auto text-red-500">{error}</span>
+        ) : (
+          <>
+            {/* Add Customer Information Section */}
+            <div className="p-4 border-b dark:border-gray-700 shadow-md rounded-xl">
+              <h3 className="text-lg font-semibold md:mb-3 mt-6 mb-2">Customer Information</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="text-center">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Ordered By</p>
+                  <p className="font-semibold">{data?.orderedBy?.role ?? 'N/A'}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Name</p>
+                  <p className="font-semibold">{data?.orderedBy?.name ?? 'N/A'}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Phone</p>
+                  <p className="font-semibold">{data?.orderedBy?.contact ?? 'N/A'}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Email</p>
+                  <p className="font-semibold">{data?.orderedBy?.email ?? 'N/A'}</p>
+                </div>
+              </div>
+            </div>
+
             <TableContainer className="my-8 max-h-[225px] lg:max-h-[400px] overflow-y-auto">
               <Table>
                 <TableHeader>
@@ -73,12 +95,6 @@ const OrderedBy = ({ orderId, onClose }) => {
                       {t("ItemPrice")}
                     </TableCell>
                     <TableCell className="text-center">{"GST"}</TableCell>
-                    <TableCell className="text-center">{"Phone"}</TableCell>
-                    <TableCell className="text-center">{"Email"}</TableCell>
-                    <TableCell className="text-center">{"Name"}</TableCell>
-                    <TableCell className="text-center">
-                      {"Ordered By"}
-                    </TableCell>
                     <TableCell className="text-right">{"Amount"}</TableCell>
                   </tr>
                 </TableHeader>
@@ -89,9 +105,9 @@ const OrderedBy = ({ orderId, onClose }) => {
                 />
               </Table>
             </TableContainer>
-          )}
-        </div>
-
+          </>
+        )}
+        
         {!loading && (
           <div className="border rounded-xl border-gray-100 p-3 bg-gray-50 dark:bg-gray-900 dark:border-gray-800">
             <div className="flex lg:flex-row md:flex-row flex-col justify-around">
@@ -134,7 +150,7 @@ const OrderedBy = ({ orderId, onClose }) => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
