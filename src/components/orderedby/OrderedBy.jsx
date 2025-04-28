@@ -48,11 +48,11 @@ const OrderedBy = ({ orderId, onClose }) => {
 
   return (
     <>
-      <PageTitle> OrderDetails </PageTitle>
+      <PageTitle> Order Details </PageTitle>
 
       <div
         ref={printRef}
-        className="bg-white dark:bg-gray-800 mb-4 p-6 lg:p-8 rounded-xl shadow-sm overflow-hidden"
+        className="bg-white dark:bg-gray-800 mb-4 rounded-xl shadow-sm overflow-hidden"
       >
         <div>
           {loading ? (
@@ -60,7 +60,7 @@ const OrderedBy = ({ orderId, onClose }) => {
           ) : error ? (
             <span className="text-center mx-auto text-red-500">{error}</span>
           ) : (
-            <TableContainer className="my-8">
+            <TableContainer className="my-8 max-h-[225px] lg:max-h-[400px] overflow-y-auto">
               <Table>
                 <TableHeader>
                   <tr>
@@ -93,39 +93,39 @@ const OrderedBy = ({ orderId, onClose }) => {
         </div>
 
         {!loading && (
-          <div className="border rounded-xl border-gray-100 p-8 py-6 bg-gray-50 dark:bg-gray-900 dark:border-gray-800">
-            <div className="flex lg:flex-row md:flex-row flex-col justify-between">
+          <div className="border rounded-xl border-gray-100 p-3 bg-gray-50 dark:bg-gray-900 dark:border-gray-800">
+            <div className="flex lg:flex-row md:flex-row flex-col justify-around">
               <div className="mb-3 md:mb-0 lg:mb-0  flex flex-col sm:flex-wrap">
-                <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 dark:text-gray-500 block">
+                <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 dark:text-gray-500 block text-center">
                   {t("InvoicepaymentMethod")}
                 </span>
-                <span className="text-sm text-gray-500 dark:text-gray-400 font-semibold font-serif block">
+                <span className="text-sm text-gray-500 dark:text-gray-400 font-semibold font-serif block text-center">
                   {data.paymentMethod}
                 </span>
               </div>
               <div className="mb-3 md:mb-0 lg:mb-0  flex flex-col sm:flex-wrap">
-                <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 dark:text-gray-500 block">
+                <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 dark:text-gray-500 block text-center">
                   {t("ShippingCost")}
                 </span>
-                <span className="text-sm text-gray-500 dark:text-gray-400 font-semibold font-serif block">
+                <span className="text-sm text-gray-500 dark:text-gray-400 font-semibold font-serif block text-center">
                   {currency}
                   {getNumberTwo(data.shippingCost)}
                 </span>
               </div>
-              <div className="mb-3 md:mb-0 lg:mb-0  flex flex-col sm:flex-wrap">
-                <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 dark:text-gray-500 block">
+              <div className="mb-3 md:mb-0 px-3 lg:mb-0  flex flex-col sm:flex-wrap">
+                <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 dark:text-gray-500 block text-center">
                   {t("InvoiceDicount")}
                 </span>
-                <span className="text-sm text-gray-500 dark:text-gray-400 font-semibold font-serif block">
+                <span className="text-sm text-gray-500 dark:text-gray-400 font-semibold font-serif block text-center">
                   {currency}
                   {getNumberTwo(data.discount)}
                 </span>
               </div>
               <div className="flex flex-col sm:flex-wrap">
-                <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 dark:text-gray-500 block">
+                <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 dark:text-gray-500 block text-center">
                   {t("InvoiceTotalAmount")}
                 </span>
-                <span className="text-xl font-serif font-bold text-red-500 dark:text-emerald-500 block">
+                <span className="text-lg font-serif font-bold text-red-500 dark:text-emerald-500 block text-center">
                   {currency}
                   {getNumberTwo(data.total)}
                 </span>
