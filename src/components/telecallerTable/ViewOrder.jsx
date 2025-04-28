@@ -1,7 +1,6 @@
+// ViewOrder.jsx
 import { useParams } from "react-router";
-
 import React, { useContext, useRef, useState, useEffect } from "react";
-
 import {
   TableCell,
   TableHeader,
@@ -35,7 +34,7 @@ const ViewOrder = ({ staffId, onClose }) => {
   // Add pagination state
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10); // Default limit
-  const [orderData, setOrderData] = useState(null);
+  const [telecallerData, setTelecallerData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -53,7 +52,8 @@ const ViewOrder = ({ staffId, onClose }) => {
         };
 
         const result = await OrderServices.getTelecallerOrderById(id, params);
-        setOrderData(result);
+        console.log("telecaller data", result);
+        setTelecallerData(result.data);
         setError(null);
       } catch (err) {
         setError(err.message || "An error occurred while fetching the data");
@@ -65,21 +65,90 @@ const ViewOrder = ({ staffId, onClose }) => {
     fetchData();
   }, [id, page, limit]);
 
+  // Check if there are orders to display
+  const hasOrders = telecallerData?.orders && telecallerData?.orders?.length > 0;
+  const totalPages = telecallerData?.pagination?.totalPages || 0;
+
   return (
     <>
-      <PageTitle> Order Details </PageTitle>
+      <PageTitle>Telecaller Details</PageTitle>
 
       <div
         ref={printRef}
         className="bg-white dark:bg-gray-800 mb-4 rounded-xl shadow-sm overflow-hidden"
       >
+        {/* Show telecaller basic info */}
+        {telecallerData && !loading && (
+          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-lg font-semibold mb-2">
+              Telecaller Information
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div>
+                <p>
+                  <span className="font-medium">Name:</span>{" "}
+                  {telecallerData.name}
+                </p>
+                <p>
+                  <span className="font-medium">Email:</span>{" "}
+                  {telecallerData.email}
+                </p>
+                <p>
+                  <span className="font-medium">Phone:</span>{" "}
+                  {telecallerData.mobile}
+                </p>
+              </div>
+              <div>
+                <p>
+                  <span className="font-medium">City:</span>{" "}
+                  {telecallerData.city}
+                </p>
+                <p>
+                  <span className="font-medium">State:</span>{" "}
+                  {telecallerData.state}
+                </p>
+                <p>
+                  <span className="font-medium">Status:</span>{" "}
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs ${
+                      telecallerData.status === "Rejected"
+                        ? "bg-red-100 text-red-800"
+                        : "bg-green-100 text-green-800"
+                    }`}
+                  >
+                    {telecallerData.status}
+                  </span>
+                </p>
+              </div>
+              <div>
+                <p>
+                  <span className="font-medium">Account Holder:</span>{" "}
+                  {telecallerData.accountHolderName}
+                </p>
+                <p>
+                  <span className="font-medium">Account Number:</span>{" "}
+                  {telecallerData.bankAccNumber}
+                </p>
+                <p>
+                  <span className="font-medium">IFSC:</span>{" "}
+                  {telecallerData.IFSC}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <h3 className="text-lg font-semibold p-4">Order History</h3>
+
         <div>
           {loading ? (
             <Loading loading={loading} />
           ) : error ? (
-            <span className="text-center mx-auto text-red-500">{error}</span>
+            <span className="text-center mx-auto text-red-500 block p-4">
+              {error}
+            </span>
           ) : (
-            <TableContainer className="my-8 max-h-[225px] lg:max-h-[400px] overflow-y-auto">
+            <TableContainer className="my-4 max-h-[225px] lg:max-h-[400px] overflow-y-auto">
               <Table>
                 <TableHeader>
                   <tr>
@@ -102,7 +171,7 @@ const ViewOrder = ({ staffId, onClose }) => {
                   </tr>
                 </TableHeader>
                 <TelecallerOrderTable
-                  data={orderData}
+                  orders={telecallerData?.orders || []}
                   currency={currency}
                   getNumberTwo={getNumberTwo}
                 />
@@ -111,42 +180,34 @@ const ViewOrder = ({ staffId, onClose }) => {
           )}
         </div>
 
-        {!loading && orderData && (
-          <div className="border rounded-xl border-gray-100 p-3 bg-gray-50 dark:bg-gray-900 dark:border-gray-800">
+        {/* Show order summary only if there are orders */}
+        {!loading && telecallerData && hasOrders && (
+          <div className="border rounded-xl border-gray-100 p-3 m-4 bg-gray-50 dark:bg-gray-900 dark:border-gray-800">
             <div className="flex lg:flex-row md:flex-row flex-col justify-around">
-              <div className="mb-3 md:mb-0 lg:mb-0  flex flex-col sm:flex-wrap">
+              <div className="mb-3 md:mb-0 lg:mb-0 flex flex-col sm:flex-wrap">
                 <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 dark:text-gray-500 block text-center">
-                  {t("InvoicepaymentMethod")}
+                  Commission Earned
                 </span>
-                <span className="text-sm text-gray-500 dark:text-gray-400 font-semibold font-serif block text-center">
-                  {orderData.paymentMethod}
+                <span className="text-lg text-gray-500 dark:text-gray-400 font-semibold font-serif block text-center">
+                  {currency}
+                  {getNumberTwo(telecallerData.commission || 0)}
                 </span>
               </div>
-              <div className="mb-3 md:mb-0 lg:mb-0  flex flex-col sm:flex-wrap">
+              <div className="mb-3 md:mb-0 lg:mb-0 flex flex-col sm:flex-wrap">
                 <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 dark:text-gray-500 block text-center">
-                  {t("ShippingCost")}
+                  Remaining Balance
                 </span>
-                <span className="text-sm text-gray-500 dark:text-gray-400 font-semibold font-serif block text-center">
+                <span className="text-lg text-gray-500 dark:text-gray-400 font-semibold font-serif block text-center">
                   {currency}
-                  {getNumberTwo(orderData.shippingCost)}
-                </span>
-              </div>
-              <div className="mb-3 md:mb-0 px-3 lg:mb-0  flex flex-col sm:flex-wrap">
-                <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 dark:text-gray-500 block text-center">
-                  {t("InvoiceDicount")}
-                </span>
-                <span className="text-sm text-gray-500 dark:text-gray-400 font-semibold font-serif block text-center">
-                  {currency}
-                  {getNumberTwo(orderData.discount)}
+                  {getNumberTwo(telecallerData.remainingBalance || 0)}
                 </span>
               </div>
               <div className="flex flex-col sm:flex-wrap">
                 <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 dark:text-gray-500 block text-center">
-                  {t("InvoiceTotalAmount")}
+                  Total Orders
                 </span>
                 <span className="text-lg font-serif font-bold text-red-500 dark:text-emerald-500 block text-center">
-                  {currency}
-                  {getNumberTwo(orderData.total)}
+                  {telecallerData?.pagination?.totalOrders || 0}
                 </span>
               </div>
             </div>
@@ -154,7 +215,7 @@ const ViewOrder = ({ staffId, onClose }) => {
         )}
 
         {/* Add pagination controls */}
-        {!loading && orderData && (
+        {!loading && telecallerData && (
           <div className="flex justify-between items-center p-4">
             <button
               onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 1))}
@@ -163,10 +224,13 @@ const ViewOrder = ({ staffId, onClose }) => {
             >
               Previous
             </button>
-            <span>Page {page}</span>
+            <span>
+              Page {page} of {totalPages || 1}
+            </span>
             <button
               onClick={() => setPage((prevPage) => prevPage + 1)}
-              className="px-3 py-1 bg-gray-200 rounded-md"
+              disabled={page >= totalPages}
+              className="px-3 py-1 bg-gray-200 rounded-md disabled:opacity-50"
             >
               Next
             </button>
