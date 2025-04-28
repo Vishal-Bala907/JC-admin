@@ -33,7 +33,7 @@ const ViewOrder = ({ staffId, onClose }) => {
 
   // Add pagination state
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10); // Default limit
+  const [limit, setLimit] = useState(1); // Default limit
   const [telecallerData, setTelecallerData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -129,10 +129,10 @@ const ViewOrder = ({ staffId, onClose }) => {
                   <span className="font-medium">Account Number:</span>{" "}
                   {telecallerData.bankAccNumber}
                 </p>
-                <p>
+                {/* <p>
                   <span className="font-medium">IFSC:</span>{" "}
                   {telecallerData.IFSC}
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
