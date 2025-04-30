@@ -7,7 +7,8 @@ const TelecallerOrderTable = ({ orders, currency, getNumberTwo }) => {
     console.error('TelecallerOrderTable: orders prop must be an array');
     return null;
   }
-
+  console.log("orders: ", orders);
+  
   if (!currency || typeof getNumberTwo !== 'function') {
     console.error('TelecallerOrderTable: missing required props');
     return null;
@@ -17,7 +18,7 @@ const TelecallerOrderTable = ({ orders, currency, getNumberTwo }) => {
   if (orders.length === 0) {
     return (
       <TableBody className="bg-white dark:bg-gray-800 divide-y divide-gray-100 text-serif text-sm">
-        <TableRow className="dark:border-gray-700 dark:text-gray-400">
+        <TableRow className="dark:border-gray-700 dark:text-black">
           <TableCell colSpan="10" className="px-6 py-4 text-center font-medium text-gray-500">
             No orders found for this telecaller
           </TableCell>
@@ -31,60 +32,35 @@ const TelecallerOrderTable = ({ orders, currency, getNumberTwo }) => {
     return (
       <TableBody className="bg-white dark:bg-gray-800 divide-y divide-gray-100 text-serif text-sm">
         {orders.map((order, i) => (
-          <React.Fragment key={i}>
-            {order.cart?.map((item, j) => (
-              <TableRow
-                key={`${i}-${j}`}
-                className="dark:border-gray-700 dark:text-gray-400"
-              >
-                <TableCell className="px-6 py-1 whitespace-nowrap font-normal text-gray-500 text-left">
-                  {j + 1}
-                </TableCell>
-                <TableCell className="px-6 py-1 whitespace-nowrap font-normal text-gray-500">
-                  <span
-                    className={`text-gray-700 font-semibold dark:text-gray-300 text-xs ${
-                      item.title.length > 15 ? "wrap-long-title" : ""
-                    }`}
-                  >
-                    {item.title}
-                  </span>
-                </TableCell>
-                <TableCell className="px-6 py-1 whitespace-nowrap font-bold ">
-                  {item.quantity}
-                </TableCell>
-                <TableCell className="px-6 py-1 whitespace-nowrap font-bold ">
-                  {currency}
-                  {getNumberTwo(
-                    (item.price * 100) / (100 + (item.prices?.gst ?? 0))
-                  )}
-                </TableCell>
-                <TableCell className="px-6 py-1 whitespace-nowrap font-bold ">
-                  {getNumberTwo(item.prices?.gst ?? 0)}
-                  {" %"}
-                </TableCell>
+          <TableRow key={i} className={`dark:border-gray-700 dark:text-black bg-gray-200 hover:bg-gray-50 dark:hover:bg-gray-300 transition-colors`}>
+            <TableCell className="px-6 py-1 whitespace-nowrap font-normal text-gray-500 dark:text-black text-left">
+              {i + 1}
+            </TableCell>
+            <TableCell className="px-6 py-1 whitespace-nowrap font-normal text-gray-500 dark:text-black">
+              <span className={`text-gray-700 font-semibold dark:text-black text-md ${!order.riderName && "italic font-thin"}`}>
+                {order.riderName || "Rider not assigned yet"}
+              </span>
+            </TableCell>
+            <TableCell className="px-6 py-1 text-gray-600 dark:text-black">
+              {order.cart?.length || 0}
+            </TableCell>
+            <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-gray-600 dark:text-black">
+              {order.paymentMethod}
+            </TableCell>
+            <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-gray-600 dark:text-black">
+              {order.shippingCost}
+            </TableCell>
+            <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-gray-600 dark:text-black">
+              {order.status}
+            </TableCell>
+            <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-gray-600 dark:text-black">
+              ₹{order.subTotal}
+            </TableCell>
+            <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-gray-600 dark:text-black">
+              ₹{order.total}
+            </TableCell>
 
-                {/*orderedBy */}
-                {/* <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-center">
-                  {order.orderedBy?.contact ?? "N/A"}
-                </TableCell>
-                <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-center">
-                  {order.orderedBy?.email ?? "N/A"}
-                </TableCell>
-                <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-center">
-                  {order.orderedBy?.name ?? "N/A"}
-                </TableCell> */}
-                <TableCell className="px-6 py-1 whitespace-nowrap font-bold ">
-                  {order.orderedBy?.role ?? "N/A"}
-                </TableCell>
-
-                <TableCell className="px-6 py-1 whitespace-nowrap font-bold text-red-500 dark:text-emerald-500 ">
-                  
-                  {currency}
-                  {getNumberTwo(item.itemTotal)}
-                </TableCell>
-              </TableRow>
-            ))}
-          </React.Fragment>
+          </TableRow>
         ))}
       </TableBody>
     );

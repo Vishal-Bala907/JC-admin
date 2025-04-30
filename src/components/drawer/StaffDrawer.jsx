@@ -56,12 +56,13 @@ const StaffDrawer = ({ id }) => {
         )}
       </div>
       <Scrollbars className="w-full md:w-7/12 lg:w-8/12 xl:w-8/12 relative dark:bg-gray-700 dark:text-gray-200">
-        <Card className="overflow-y-scroll flex-grow scrollbar-hide w-full max-h-full">
-          <CardBody>
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <Card className="overflow-y-scroll flex-grow scrollbar-hide w-full max-h-full dark:bg-gray-800">
+          <CardBody className="dark:bg-gray-800">
+            <form onSubmit={handleSubmit(onSubmit)} className="dark:text-gray-200">
               <div className="px-6 pt-8 flex-grow scrollbar-hide w-full max-h-full pb-40">
+                {/* Staff Image Section */}
                 <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-                  <LabelArea label="Staff Image" />
+                  <LabelArea label="Staff Image" className="dark:text-gray-300" />
                   <div className="col-span-8 sm:col-span-4">
                     <Uploader
                       imageUrl={imageUrl}
@@ -73,8 +74,9 @@ const StaffDrawer = ({ id }) => {
                   </div>
                 </div>
 
+                {/* Input Fields */}
                 <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-                  <LabelArea label="Name" />
+                  <LabelArea label="Name" className="dark:text-gray-300" />
                   <div className="col-span-8 sm:col-span-4">
                     <InputArea
                       required={true}
@@ -84,8 +86,9 @@ const StaffDrawer = ({ id }) => {
                       type="text"
                       autoComplete="username"
                       placeholder="Staff name"
+                      className="dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:focus:border-gray-500"
                     />
-                    <Error errorName={errors.name} />
+                    <Error errorName={errors.name} className="dark:text-red-400" />
                   </div>
                 </div>
 
@@ -176,21 +179,20 @@ const StaffDrawer = ({ id }) => {
                     <Error errorName={errors.role} />
                   </div>
                 </div>
-                {role === "Admin" ||
-                  (role === "Super Admin" && (
-                    <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-                      <LabelArea label="Select Routes to given Access" />
-                      <div className="col-span-8 sm:col-span-4">
-                        <MultiSelect
-                          options={routeAccessList}
-                          value={accessedRoutes}
-                          className={mode}
-                          onChange={(v) => setAccessedRoutes(v)}
-                          labelledBy="Select Coupon"
-                        />
-                      </div>
+                {(role === "Admin" || role === "Super Admin") && (
+                  <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
+                    <LabelArea label="Select Routes to given Access" className="dark:text-gray-300" />
+                    <div className="col-span-8 sm:col-span-4">
+                      <MultiSelect
+                        options={routeAccessList}
+                        value={accessedRoutes}
+                        className={`${mode} dark:bg-gray-700 dark:border-gray-600`}
+                        onChange={(v) => setAccessedRoutes(v)}
+                        labelledBy="Select Coupon"
+                      />
                     </div>
-                  ))}
+                  </div>
+                )}
               </div>
 
               <DrawerButton
@@ -198,6 +200,7 @@ const StaffDrawer = ({ id }) => {
                 title="Staff"
                 zIndex="z-5"
                 isSubmitting={isSubmitting}
+                className="dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
               />
             </form>
           </CardBody>

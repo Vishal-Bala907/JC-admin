@@ -67,6 +67,8 @@ const [selectedStaffId, setSelectedStaffId] = useState(null);
     try {
       await AdminServices.updateTelecallerStatus(id, { status: newStatus });
       toast.success("Status updated successfully");
+      // window.location.reload(); 
+
     } catch (err) {
       console.error(err);
       toast.error(err?.response?.data?.message);
@@ -83,11 +85,11 @@ const [selectedStaffId, setSelectedStaffId] = useState(null);
   const getRowBackgroundColor = (status) => {
     switch (status) {
       case "Accepted":
-        return "bg-green-100 hover:bg-green-200 transition-colors duration-150";
+        return "bg-green-100 hover:bg-green-200 transition-colors duration-150 dark:text-black";
       case "Rejected":
-        return "bg-red-100 hover:bg-red-200 transition-colors duration-150";
+        return "bg-red-100 hover:bg-red-200 transition-colors duration-150 dark:text-black";
       default:
-        return "bg-yellow-100 hover:bg-yellow-200 transition-colors duration-150";
+        return "bg-yellow-100 hover:bg-yellow-200 transition-colors duration-150 dark:text-black";
     }
   };
   const handleViewClick = (staffId) => {
@@ -158,7 +160,17 @@ const [selectedStaffId, setSelectedStaffId] = useState(null);
             <TableCell className="text-gray-500 hover:text-emerald-600">
               <span
                 className="flex flex-nowrap gap-1 items-center justify-center cursor-pointer"
-                onClick={() => handleViewClick(staff._id)}
+                  onClick={() => {
+                    const currentStatus = staffStatus[staff._id];
+                  
+                    if (currentStatus === "Hold") {
+                      toast.error("Partner is at hold");
+                    } else if (currentStatus === "Rejected") {
+                      toast.error("Partner is rejected");
+                    } else {
+                      handleViewClick(staff._id);
+                    }
+                  }}
               >
                 View <FaEye />
               </span>

@@ -33,8 +33,8 @@ const ViewOrder = ({ staffId, onClose }) => {
 
   // Add pagination state
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(1); // Default limit
-  const [telecallerData, setTelecallerData] = useState(null);
+  const [limit, setLimit] = useState(10); // Default limit
+  const [telecallerData, setTelecallerData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -52,8 +52,10 @@ const ViewOrder = ({ staffId, onClose }) => {
         };
 
         const result = await OrderServices.getTelecallerOrderById(id, params);
-        console.log("telecaller data", result);
-        setTelecallerData(result.data);
+        console.log("telecaller whole object: ", result);
+        setTelecallerData(result);
+        console.log("telecaller data", telecallerData.data);
+        
         setError(null);
       } catch (err) {
         setError(err.message || "An error occurred while fetching the data");
@@ -68,6 +70,8 @@ const ViewOrder = ({ staffId, onClose }) => {
   // Check if there are orders to display
   const hasOrders = telecallerData?.orders && telecallerData?.orders?.length > 0;
   const totalPages = telecallerData?.pagination?.totalPages || 0;
+  console.log("total pages: ", totalPages);
+  
 
   return (
     <>
@@ -79,7 +83,7 @@ const ViewOrder = ({ staffId, onClose }) => {
       >
         {/* Show telecaller basic info */}
         {telecallerData && !loading && (
-          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+          <div className="p-4 border-b border-gray-200 dark:text-gray-200 dark:border-gray-700">
             <h2 className="text-lg font-semibold mb-2">
               Telecaller Information
             </h2>
@@ -87,25 +91,25 @@ const ViewOrder = ({ staffId, onClose }) => {
               <div>
                 <p>
                   <span className="font-medium">Name:</span>{" "}
-                  {telecallerData.name}
+                  {telecallerData.data.name }
                 </p>
                 <p>
                   <span className="font-medium">Email:</span>{" "}
-                  {telecallerData.email}
+                  {telecallerData.data.email}
                 </p>
                 <p>
                   <span className="font-medium">Phone:</span>{" "}
-                  {telecallerData.mobile}
+                  {telecallerData.data.mobile}
                 </p>
               </div>
               <div>
                 <p>
                   <span className="font-medium">City:</span>{" "}
-                  {telecallerData.city}
+                  {telecallerData.data.city}
                 </p>
                 <p>
                   <span className="font-medium">State:</span>{" "}
-                  {telecallerData.state}
+                  {telecallerData.data.state}
                 </p>
                 <p>
                   <span className="font-medium">Status:</span>{" "}
@@ -116,29 +120,30 @@ const ViewOrder = ({ staffId, onClose }) => {
                         : "bg-green-100 text-green-800"
                     }`}
                   >
-                    {telecallerData.status}
+                    {console.log("telecaller status", telecallerData.data.status)}
+                    {telecallerData.data.status}
                   </span>
                 </p>
               </div>
               <div>
                 <p>
                   <span className="font-medium">Account Holder:</span>{" "}
-                  {telecallerData.accountHolderName}
+                  {telecallerData.data.accountHolderName}
                 </p>
                 <p>
                   <span className="font-medium">Account Number:</span>{" "}
-                  {telecallerData.bankAccNumber}
+                  {telecallerData.data.bankAccNumber}
                 </p>
                 <p>
                   <span className="font-medium">IFSC:</span>{" "}
-                  {telecallerData.IFSC}
+                  {telecallerData.data.IFSC}
                 </p>
               </div>
             </div>
           </div>
         )}
 
-        <h3 className="text-lg font-semibold p-4">Order History</h3>
+        <h3 className="text-lg dark:text-gray-300 font-semibold p-4">Order History</h3>
 
         <div>
           {loading ? (
@@ -149,30 +154,28 @@ const ViewOrder = ({ staffId, onClose }) => {
             </span>
           ) : (
             <div className="overflow-x-auto">
-              <TableContainer className="my-4 max-h-[200px] overflow-y-auto">
+              <TableContainer className="my-4 max-h-[300px] overflow-y-auto">
                 <Table className="w-full whitespace-nowrap">
                   <TableHeader>
                     <tr>
-                      <TableCell>{t("Sr")}</TableCell>
-                      <TableCell>Product Title</TableCell>
-                      <TableCell>
-                        {t("Quantity")}
+                      <TableCell className="dark:text-gray-100">{t("Sr")}</TableCell>
+                      <TableCell className="dark:text-gray-100">Rider Name</TableCell>
+                      <TableCell className="dark:text-gray-100">
+                        {t("Total Orders")}
                       </TableCell>
-                      <TableCell>
-                        {t("ItemPrice")}
+                      <TableCell className="dark:text-gray-100">
+                        {t("Payment method")}
                       </TableCell>
-                      <TableCell>{"GST"}</TableCell>
-                      {/* <TableCell className="text-center">{"Phone"}</TableCell>
-                      <TableCell className="text-center">{"Email"}</TableCell>
-                      <TableCell className="text-center">{"Name"}</TableCell> */}
-                      <TableCell>
-                        {"Ordered By"}
+                      <TableCell className="dark:text-gray-100">{"Shipping Cost"}</TableCell>
+                      <TableCell className="dark:text-gray-100">{"Status"}</TableCell>
+                      <TableCell className="dark:text-gray-100">
+                        {"Sub Total"}
                       </TableCell>
-                      <TableCell>{"Amount"}</TableCell>
+                      <TableCell className="dark:text-gray-100">{"Total Amount"}</TableCell>
                     </tr>
                   </TableHeader>
                   <TelecallerOrderTable
-                    orders={telecallerData?.orders || []}
+                    orders={telecallerData?.data.orders || []}
                     currency={currency}
                     getNumberTwo={getNumberTwo}
                   />
@@ -226,12 +229,12 @@ const ViewOrder = ({ staffId, onClose }) => {
             >
               Previous
             </button>
-            <span>
-              Page {page} of {totalPages || 1}
+            <span className="text-sm text-gray-500 dark:text-gray-400 font-semibold font-serif">
+              Page {page} of {totalPages}
             </span>
             <button
-              onClick={() => setPage((prevPage) => prevPage + 1)}
-              // disabled={page >= totalPages}
+              onClick={() => setPage((prevPage) => Math.min(prevPage + 1, totalPages))} 
+              disabled={page >= totalPages}
               // disabled={}
               className="px-3 py-1 bg-gray-200 rounded-md disabled:opacity-50"
             >
