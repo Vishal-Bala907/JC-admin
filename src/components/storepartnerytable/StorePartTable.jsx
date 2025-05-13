@@ -32,7 +32,7 @@ const StorePartTable = ({ staffs, lang }) => {
     isSubmitting,
     handleResetPassword,
   } = useToggleDrawer();
-  console.log(staffs);
+  console.log("staff",staffs);
 
   const { showDateFormat, showingTranslateValue } = useUtilsFunction();
   // State for access list modal
@@ -174,7 +174,9 @@ const StorePartTable = ({ staffs, lang }) => {
               <span className="text-sm ">{staff.pan}</span>
             </TableCell>
             <TableCell>
-              <span className="text-sm ">{staff.aadhar}</span>
+              <span className="text-sm ">
+                {staff?.aadhar ? staff?.aadhar : "No Aadhar"}
+              </span>
             </TableCell>
             <TableCell>
               <span className="text-sm ">{staff?.gst ?? 0}</span>

@@ -149,11 +149,10 @@ const Partner = () => {
                 <TableCell className="text-center">{"Pincode"}</TableCell>
                 <TableCell className="text-center">{"Secondary Pincode"}</TableCell>
                 <TableCell className="text-center">{"Add Pincode"}</TableCell>
-                <TableCell className="text-center">{"Pincode"}</TableCell>
                 <TableCell className="text-center">{"PAN"}</TableCell>
 
                 <TableCell className="text-center">{"AADHAR"}</TableCell>
-                {/* <TableCell className="text-center">{"GST"}</TableCell> */}
+                <TableCell className="text-center">{"GST"}</TableCell>
                 {/* <TableCell className="text-center">{"designation"}</TableCell> */}
                 <TableCell className="text-center">{"Status"}</TableCell>
               </tr>
