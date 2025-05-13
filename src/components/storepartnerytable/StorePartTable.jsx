@@ -1,6 +1,13 @@
-import { Avatar, TableBody, TableCell, TableRow } from "@windmill/react-ui";
+import {
+  Avatar,
+  Button,
+  TableBody,
+  TableCell,
+  TableRow,
+} from "@windmill/react-ui";
 import React, { useEffect, useState } from "react";
 import { FiZoomIn } from "react-icons/fi";
+import PincodeModal from "./PincodeModal"; // Import your modal
 
 //internal import
 
@@ -31,6 +38,24 @@ const StorePartTable = ({ staffs, lang }) => {
   // State for access list modal
   const [selectedStaff, setSelectedStaff] = useState(null);
   const [isAccessModalOpen, setIsAccessModalOpen] = useState(false);
+  const [isPincodeModalOpen, setIsPincodeModalOpen] = useState(false);
+  const [selectedStaffId, setSelectedStaffId] = useState(null);
+
+  const openPincodeModal = (staffId) => {
+    setSelectedStaffId(staffId);
+    setIsPincodeModalOpen(true);
+  };
+
+  const closePincodeModal = () => {
+    setSelectedStaffId(null);
+    setIsPincodeModalOpen(false);
+  };
+
+  const handlePincodeConfirm = (pincode) => {
+    // You can now call an API or update local state
+    console.log("Confirmed pincode for", selectedStaffId, pincode);
+    // Example: AdminServices.addSecondaryPincode(selectedStaffId, { pincode })
+  };
 
   // Function to open the access list modal
   const handleAccessModalOpen = (staff) => {
@@ -129,13 +154,30 @@ const StorePartTable = ({ staffs, lang }) => {
               <span className="text-sm ">{staff.pinCode}</span>
             </TableCell>
             <TableCell>
+              <select
+                className="px-2 py-1 rounded-md bg-white text-black"
+                id=""
+                onChange={(e) => {}}
+              >
+                <option value="123">123</option>
+                <option value="456">456</option>
+                <option value="789">789</option>
+              </select>
+            </TableCell>
+            <TableCell>
+              <Button size="small" onClick={() => openPincodeModal(staff._id)}>
+                Add Pincode
+              </Button>
+            </TableCell>
+
+            <TableCell>
               <span className="text-sm ">{staff.pan}</span>
             </TableCell>
             <TableCell>
               <span className="text-sm ">{staff.aadhar}</span>
             </TableCell>
             <TableCell>
-              <span className="text-sm ">{staff.gst}</span>
+              <span className="text-sm ">{staff?.gst ?? 0}</span>
             </TableCell>
             <TableCell>
               <select
@@ -200,6 +242,13 @@ const StorePartTable = ({ staffs, lang }) => {
           </TableRow>
         ))}
       </TableBody>
+      {isPincodeModalOpen && (
+        <PincodeModal
+          isOpen={isPincodeModalOpen}
+          onClose={closePincodeModal}
+          onConfirm={handlePincodeConfirm}
+        />
+      )}
     </>
   );
 };
