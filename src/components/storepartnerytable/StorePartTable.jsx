@@ -23,6 +23,7 @@ import ActiveInActiveButton from "@/components/table/ActiveInActiveButton";
 import AccessListModal from "@/components/modal/AccessListModal";
 import AdminServices from "@/services/AdminServices";
 import { toast } from "react-toastify";
+import { notifyError, notifySuccess } from "@/utils/toast";
 const StorePartTable = ({ staffs, lang }) => {
   const {
     title,
@@ -55,10 +56,11 @@ const StorePartTable = ({ staffs, lang }) => {
     if (!selectedStaffId || !pincode) return;
     try {
       await AdminServices.addSecondaryPincode(selectedStaffId, pincode);
-      toast.success("Pincode added successfully");
+      notifySuccess("Pincode added successfully");
       closePincodeModal();
-    } catch {  console.error(error);
-      toast.error(
+    } catch(error) {
+      console.log(error);
+      notifyError(
         error?.response?.data?.message || "Failed to add secondary pincode"
       );
     }
