@@ -28,6 +28,12 @@ const AdminServices = {
   getAllPartners: async (body) => {
     return requests.get("/partners/partners/all", body);
   },
+  addSecondaryPincode: async (partnerId, pincode) => {
+    return requests.put(
+      `/partners/add-aditional-pincode/${partnerId}/${pincode}`
+    );
+  },
+
   getAllTelecallers: async (body) => {
     return requests.get("tele/telecallers/all", body);
   },

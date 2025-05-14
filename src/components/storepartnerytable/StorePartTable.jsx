@@ -32,7 +32,7 @@ const StorePartTable = ({ staffs, lang }) => {
     isSubmitting,
     handleResetPassword,
   } = useToggleDrawer();
-  console.log("staff",staffs);
+  console.log("staff", staffs);
 
   const { showDateFormat, showingTranslateValue } = useUtilsFunction();
   // State for access list modal
@@ -51,9 +51,19 @@ const StorePartTable = ({ staffs, lang }) => {
     setIsPincodeModalOpen(false);
   };
 
-  const handlePincodeConfirm = (pincode) => {
+  const handlePincodeConfirm = async (pincode) => {
+    if (!selectedStaffId || !pincode) return;
+    try {
+      await AdminServices.addSecondaryPincode(selectedStaffId, pincode);
+      toast.success("Pincode added successfully");
+      closePincodeModal();
+    } catch {  console.error(error);
+      toast.error(
+        error?.response?.data?.message || "Failed to add secondary pincode"
+      );
+    }
     // You can now call an API or update local state
-    console.log("Confirmed pincode for", selectedStaffId, pincode);
+    // console.log("Confirmed pincode for", selectedStaffId, pincode);
     // Example: AdminServices.addSecondaryPincode(selectedStaffId, { pincode })
   };
 
