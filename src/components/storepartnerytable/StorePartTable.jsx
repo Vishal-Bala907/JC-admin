@@ -37,11 +37,16 @@ const StorePartTable = ({ staffs, lang }) => {
 
   const { showDateFormat, showingTranslateValue } = useUtilsFunction();
   // State for access list modal
+  const [staffList, setStaffList] = useState(staffs);
+
   const [selectedStaff, setSelectedStaff] = useState(null);
   const [isAccessModalOpen, setIsAccessModalOpen] = useState(false);
   const [isPincodeModalOpen, setIsPincodeModalOpen] = useState(false);
   const [selectedStaffId, setSelectedStaffId] = useState(null);
 
+  useEffect(() => {
+    setStaffList(staffs);
+  }, [staffs]);
   const openPincodeModal = (staffId) => {
     setSelectedStaffId(staffId);
     setIsPincodeModalOpen(true);
@@ -57,8 +62,9 @@ const StorePartTable = ({ staffs, lang }) => {
     try {
       await AdminServices.addSecondaryPincode(selectedStaffId, pincode);
       notifySuccess("Pincode added successfully");
+
       closePincodeModal();
-    } catch(error) {
+    } catch (error) {
       console.log(error);
       notifyError(
         error?.response?.data?.message || "Failed to add secondary pincode"
@@ -169,11 +175,21 @@ const StorePartTable = ({ staffs, lang }) => {
               <select
                 className="px-2 py-1 rounded-md bg-white text-black"
                 id=""
-                onChange={(e) => {}}
+                disabled={staff?.additionalPincode?.length === 0}
+                defaultValue={""}
               >
-                <option value="123">123</option>
-                <option value="456">456</option>
-                <option value="789">789</option>
+                <option value="" disabled>
+                  {staff?.additionalPincode?.length > 0
+                    ? "View Pincode's"
+                    : "No Pincode"}
+                </option>
+                {staff?.additionalPincode?.map((pincode, index) => {
+                  return (
+                    <option key={index} value={pincode}>
+                      {pincode}
+                    </option>
+                  );
+                })}
               </select>
             </TableCell>
             <TableCell>
