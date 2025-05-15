@@ -62,7 +62,20 @@ const StorePartTable = ({ staffs, lang }) => {
     try {
       await AdminServices.addSecondaryPincode(selectedStaffId, pincode);
       notifySuccess("Pincode added successfully");
-
+      // update pincode in frontend
+      setStaffList((prevStaffList) =>
+        prevStaffList.map((staff) =>
+          staff._id === selectedStaffId
+            ? {
+                ...staff,
+                additionalPincode: [
+                  ...(staff.additionalPincode || []),
+                  pincode,
+                ],
+              }
+            : staff
+        )
+      );
       closePincodeModal();
     } catch (error) {
       console.log(error);
@@ -136,7 +149,7 @@ const StorePartTable = ({ staffs, lang }) => {
       </MainDrawer>
 
       <TableBody>
-        {staffs?.map((staff) => (
+        {staffList?.map((staff) => (
           <TableRow key={staff._id}>
             {/* <TableCell>
               <div className="flex items-center">
