@@ -398,7 +398,7 @@ const StoreHome = () => {
               </span>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               to={"/store/customization?storeTab=checkout-setting"}
               className={`inline-block w-full py-3 px-4 shadow-md ${
@@ -414,7 +414,7 @@ const StoreHome = () => {
                 {t("Checkout")}
               </span>
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link
               to={"/store/customization?storeTab=dashboard-setting"}
